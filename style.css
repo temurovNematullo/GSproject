@@ -1,0 +1,1335 @@
+@font-face {
+    font-family:'San Francisco Pro Display';
+    src: url(./font/SFProDisplay-Light.woff2) format(woff2); 
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+
+}
+
+@font-face {
+  font-family:'San Francisco Pro Display';
+  src: url(./font/SFProDisplay-Bold.woff2) format(woff2); 
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+
+}
+
+@font-face {
+  font-family:'San Francisco Pro Text';
+  src: url(/font/SFProText-Light.woff2) format(woff2); 
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+
+}
+
+@font-face {
+  font-family:'San Francisco Pro Text';
+  src: url(./font/SFProText-Bold.woff2) format(woff2); 
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+
+}
+
+/**
+  Нормализация блочной модели
+ */
+ *,
+ ::before,
+ ::after {
+   box-sizing: border-box;
+ }
+ 
+ /**
+   Убираем внутренние отступы слева тегам списков,
+   у которых есть атрибут class
+  */
+ :where(ul, ol):where([class]) {
+   padding-left: 0;
+ }
+ 
+ /**
+   Убираем внешние отступы body и двум другим тегам,
+   у которых есть атрибут class
+  */
+ body,
+ :where(blockquote, figure):where([class]) {
+   margin: 0;
+ }
+ 
+ /**
+   Убираем внешние отступы вертикали нужным тегам,
+   у которых есть атрибут class
+  */
+ :where(
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6,
+   p,
+   ul,
+   ol,
+   dl
+ ):where([class]) {
+   margin-block: 0;
+ }
+ 
+ :where(dd[class]) {
+   margin-left: 0;
+ }
+ 
+ :where(fieldset[class]) {
+   margin-left: 0;
+   padding: 0;
+   border: none;
+ }
+ 
+ /**
+   Убираем стандартный маркер маркированному списку,
+   у которого есть атрибут class
+  */
+ :where(ul[class]) {
+   list-style: none;
+ }
+ 
+ :where(address[class]) {
+   font-style: normal;
+ }
+ 
+ /**
+   Обнуляем вертикальные внешние отступы параграфа,
+   объявляем локальную переменную для внешнего отступа вниз,
+   чтобы избежать взаимодействие с более сложным селектором
+  */
+ p {
+   --paragraphMarginBottom: 24px;
+ 
+   margin-block: 0;
+ }
+ 
+ /**
+   Внешний отступ вниз для параграфа без атрибута class,
+   который расположен не последним среди своих соседних элементов
+  */
+ p:where(:not([class]):not(:last-child)) {
+   margin-bottom: var(--paragraphMarginBottom);
+ }
+ 
+ 
+ /**
+   Упрощаем работу с изображениями и видео
+  */
+ img,
+ video {
+   display: block;
+   max-width: 100%;
+   height: auto;
+ }
+ 
+ /**
+   Наследуем свойства шрифт для полей ввода
+  */
+ input,
+ textarea,
+ select,
+ button {
+   font: inherit;
+ }
+ 
+ html {
+   /**
+     Пригодится в большинстве ситуаций
+     (когда, например, нужно будет "прижать" футер к низу сайта)
+    */
+   height: 100%;
+   /**
+     Убираем скачок интерфейса по горизонтали
+     при появлении / исчезновении скроллбара
+    */
+   scrollbar-gutter: stable;
+ }
+ 
+ /**
+   Плавный скролл
+  */
+ html,
+ :has(:target) {
+   scroll-behavior: smooth;
+ }
+ 
+ body {
+   /**
+     Пригодится в большинстве ситуаций
+     (когда, например, нужно будет "прижать" футер к низу сайта)
+    */
+   min-height: 100%;
+   /**
+     Унифицированный интерлиньяж
+    */
+   line-height: 1.5;
+ }
+ 
+ /**
+   Нормализация высоты элемента ссылки при его инспектировании в DevTools
+  */
+ a:where([class]) {
+   display: inline-flex;
+ }
+ 
+ /**
+   Курсор-рука при наведении на элемент
+  */
+ button,
+ label {
+   cursor: pointer;
+ }
+ 
+ /**
+   Приводим к единому цвету svg-элементы
+   (за исключением тех, у которых уже указан
+   атрибут fill со значением 'none' или начинается с 'url')
+  */
+ :where([fill]:not(
+   [fill="none"],
+   [fill^="url"]
+ )) {
+   fill: currentColor;
+ }
+ 
+ /**
+   Приводим к единому цвету svg-элементы
+   (за исключением тех, у которых уже указан
+   атрибут stroke со значением 'none')
+  */
+ :where([stroke]:not(
+   [stroke="none"],
+   [stroke^="url"]
+ )) {
+   stroke: currentColor;
+ }
+ 
+ /**
+   Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+  */
+ svg * {
+   transition-property: fill, stroke;
+ }
+ 
+ /**
+   Приведение рамок таблиц в классический 'collapse' вид
+  */
+ :where(table) {
+   border-collapse: collapse;
+   border-color: currentColor;
+ }
+ 
+ a{
+  text-decoration: none;
+ }
+
+ /**
+   Удаляем все анимации и переходы для людей,
+   которые предпочитают их не использовать
+  */
+ @media (prefers-reduced-motion: reduce) {
+   *,
+   ::before,
+   ::after {
+     animation-duration: 0.01ms !important;
+     animation-iteration-count: 1 !important;
+     transition-duration: 0.01ms !important;
+     scroll-behavior: auto !important;
+   }
+ }
+
+:root{
+    --color-light:white;
+    --color-lightblue:#F2F8FF;
+    --color-lightgray:rgb(69, 79, 91);
+    --color-footer:#0D2436;
+    --conteiner-width: 1240px;
+    --container-padding-x:15px;
+    --font-family-base: 'San Francisco Pro Display' , 'san-serif';
+    --color-button:#4295E4;
+    --color-button-hover:rgb(86, 169, 248);
+    --color-button-focus:rgb(86, 169, 248);
+    --backgraund-color: rgb(242, 248, 255);
+    --transition-duration: 0.2s;
+
+}
+body{
+    font-family: var(--font-family-base);
+    background-color: var(--color-light);
+}
+a{
+    color: black;
+    width: 32;
+    height: 32;  
+   }
+
+  
+.container{
+  width: auto;
+}
+h1,h2,h3,h4,h5,h6{
+  font-family: var(--font-family-base);
+    font-weight: 600;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 20px;
+    padding: 15px 15px;
+    padding-inline: 100px;
+    box-shadow: inset 0px -1px 0px 0
+  
+}
+
+.header_menu-list{
+    display: flex;
+    column-gap: 32px;
+    
+}
+.header_menu-link{
+    text-decoration: none;
+    font-weight:400;
+    font-size: 20px;
+    letter-spacing: 1.2px;  
+    
+}
+
+a:hover{
+    color: var(--color-lightgray);
+}
+.buy-button:hover, 
+.callback-button:hover, 
+.category-button:hover{
+  background-color: var(--color-button-hover);
+}
+
+.header_logo
+{
+    flex-shrink: 0;
+    
+}
+
+.sale {
+  display: flex;
+  justify-content: space-between; /* Распределение элементов */
+  align-items: center;
+  background-color: gray;
+  color: var(--color-light);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
+  white-space: nowrap;
+  padding: 10px 20px; /* Отступы для адаптива */
+}
+
+/* Контейнер для центрирования текста */
+.sale-text {
+  
+  margin: 0 auto; /* Центрируем текст */
+}
+
+/* Отступ справа от окна */
+.sale-link {
+  position: absolute;
+  right: 100px; /* 100px от правого края */
+  color: var(--color-light);  
+}
+
+
+.header_menu-action{
+    display: flex;
+    column-gap: 24px;
+   
+   
+}
+.header_menu-number {
+    display: flex;
+    column-gap: 5px;
+    text-decoration: none;
+    font-weight:400;
+    font-size: 20px;
+    letter-spacing: 1.2px;  
+    
+  }
+ 
+  .menu-toggle {
+    display: none;
+    font-size: 24px;
+    border-radius: 50%;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+.product {
+  background-color: #F8F8F8; /* Цвет фона */
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-inline: 50px; /* Отступы по бокам */
+}
+
+.product-image {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Центрируем изображение */
+  align-items: center;
+  max-width: 50%;
+}
+
+.product-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.product-info {
+  
+  text-align: left;
+  padding-left: 50px; /* Отступ от изображения */
+}
+
+
+
+h1, h2 {
+ 
+  font-size: 44px;
+font-weight: 600;
+letter-spacing: 0%;
+text-align: left;
+}
+
+h3{
+  color: white;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0%;
+  text-transform: capitalize;
+
+}
+
+.product-name{
+  margin-top: 170px;
+}
+.price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 24px;
+  letter-spacing: 0%;
+ 
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: var(--color-lightgray);
+  font-weight: 400;
+}
+.product-text{
+  color: var(--color-lightgray);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: left;
+}
+
+.product_price{
+  color: var(--color-lightgray);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: left;
+}
+
+.buy-button {
+  background:var(--color-button);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+
+.pagination {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 90px;
+  margin-bottom: 40px;
+  margin-left: -200px;
+  gap: 16px;
+ 
+}
+
+
+
+.arrow {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.arrow img {
+  width: 11px;
+  height: 22px;
+}
+
+.arrow:hover {
+  opacity: 0.7;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #C4C4C4;
+  border-radius: 50%;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.dot.active {
+  width: 10px;
+  height: 10px;
+  background: black;
+  transform: scale(1.2);
+  border-radius: 50%;
+}
+
+
+.banner {
+  width: auto;
+  background-color: var(--backgraund-color);
+}
+
+.banner-info {
+  max-width: 1200px; /* Ограничиваем ширину на больших экранах */
+  padding-inline: 320px; /* Отступы по бокам */
+  padding-block: 40px;
+  margin: 0 auto; /* Центрируем */
+}
+
+.banner_info-list {
+  display: flex;
+  flex-direction: row; /* По умолчанию в одну колонку */
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 20px; /* Отступы между элементами */
+}
+
+.banner_info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  /* padding: 10px 20px; */
+  color: black;
+  font-family: var(--font-family-base);
+}
+
+.banner_info-number {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.banner_info-text {
+  display: block;
+  font-size: 14px;
+  margin-top: 16px;
+  color: var(--color-lightgray);
+}
+.whyGS-title{
+  text-align: center;
+  margin-top: 95px;
+  margin-bottom: 50px;
+}
+
+.whyGS_info-list{
+  display: flex; /* Включаем Flexbox */
+  justify-content: space-between; 
+  align-items: center;
+  padding-inline: 100px;
+}
+
+.whyGS_info-item{
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  padding: 24px 24px;
+  width: 400px;
+  height: 230px;
+  border-left: solid 2px var(--color-lightgray);
+  border-right: solid 2px var(--color-lightgray);
+}
+
+.whyGS_info-text{
+  font-size: 20px;
+  text-align: center;
+  padding-top: 35px;
+  color: var(--color-lightgray);
+}
+
+
+.category {
+  text-align: center;
+  margin-top: 95px;
+  margin-bottom: 65px;
+}
+
+.category-title{
+  text-align: center;
+  padding-bottom: 65px;
+}
+
+.category_info-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Гибкая сетка */
+  gap: 40px; /* Отступы между элементами */
+  padding-inline: 100px;
+  grid-template-columns: repeat(2, 1fr);
+  
+  
+}
+
+.category_info-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Выравниваем текст внизу */
+  align-items: flex-start;
+  padding: 40px;
+  width: 600px;
+  height: 470px;
+  background-size: cover;
+  background-position: center;
+  color: var(--color-lightgray);
+  position: relative;
+  
+}
+
+.category_info-text {
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.category_info-button {
+  background: transparent;
+  color: black;
+  border: solid 2px var(--color-lightgray);
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.category-button {
+  margin-top: 30px;
+  padding: 12px 20px;
+  background: var(--color-button);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  max-width: 250px;
+}
+
+
+.popular_product-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Заголовок слева, кнопки справа */
+  gap: 15px; /* Отступ между текстом и кнопками */
+  padding-inline: 100px;
+  padding-bottom: 50px;
+}
+
+.popular_product-scrol {
+  display: flex;
+  gap: 10px; /* Отступ между кнопками */
+}
+
+.popular_product-left,
+.popular_product-right {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.popular_product-left::before,
+.popular_product-right::before {
+  content: url(/icon/scrolLeft.svg); /* Стрелка влево */
+  font-size: 20px;
+  background-color: none;
+  width: 32px;
+  height: 32px;
+}
+
+.popular_product-right::before {
+  content: url(/icon/scrolRight.svg); /* Стрелка вправо */
+}
+
+
+.popular_product-list{
+  display: flex; /* Включаем Flexbox */
+  justify-content: space-between; 
+  align-items: center;
+  padding-inline: 100px;
+  gap: 40px;
+}
+.popular_product-item{
+  width: 290px;
+  height: 455px;
+  border: solid 2px rgb(245, 241, 241);
+ 
+}
+.popular_product-img{
+  width: 290px;
+  height: 320px;
+  z-index: -1;
+  
+  border-bottom: none;
+}
+
+.popular_product-text{
+  width: 290;
+  height: 110;
+  color: var(--color-lightgray);
+  font-size: 16px;
+
+  
+}
+.textPadding{
+  padding-top: 15px;
+  padding-inline: 15px;
+  border-top: none;
+}
+
+.popular_product .price{
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+.callback{
+background-color: var(--color-lightblue);
+}
+
+.callback-title{
+  text-align: center;
+  padding-top: 65px;
+}
+
+.callback_list-item{
+  max-width: 100%; /* Не даем элементу выходить за границы экрана */
+  width: 520px; 
+  height: 55px;
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 24px;
+}
+
+.callback-text{
+  color:  var(--color-lightgray);
+
+}
+
+input{
+  border: none;
+  outline: none;
+  box-shadow: none;
+  width: 240px;
+  height: 50px;
+}
+
+.callback-button{
+  background-color: var(--color-button);
+  color: white;
+  width: 240px;
+  height: 50px;
+  border: none;
+}
+.callback-inputlist{
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    padding-bottom: 55px;
+    padding-top: 25px;
+    column-gap: 24px;
+    gap: 15px
+  
+}
+
+
+.footer_container{
+  width: auto;
+  height: 450px;
+  background-color: var(--color-footer);
+}
+
+.footer_container-list{
+  display: flex;
+  flex-direction: row;
+  column-gap: 220px;
+  padding-right: 85px;
+  padding-top: 55px;
+}
+.footer_container-itemList{
+  padding-left: 100px;
+}
+
+.footer_container-itemList1{
+display: flex;
+flex-direction: row;
+
+column-gap: 100px ;
+}
+
+.footer_container-itemchat{
+  display: flex;
+  flex-direction: row;
+  padding-top: 145px;
+  column-gap: 25px;
+}
+
+.footer_container-itemlist1{
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+  row-gap: 16px;
+ 
+}
+
+footer li{
+  color: white;
+}
+.footer_container-PhonAndEmail
+{
+  color: var(--color-lightgray);
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.footer_lineAndtext {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: 25px; 
+  padding-inline: 100px;
+}
+
+.footer_line {
+  width: 100%; 
+  height: 1px; 
+  margin-top: 50px;
+  background-color: var(--color-lightgray); 
+}
+
+.footer_text {
+  font-size: 14px;
+  color: var(--color-lightgray);
+  text-align: center;
+}
+
+
+
+  @media (max-width: 1080px){
+    .header{
+      flex-wrap: wrap;
+      
+    }
+    .header_menu{
+      order: 1;
+      flex-basis: 100%;
+    }
+
+    .sale-link {
+      display: none;
+   }
+ 
+
+.product {
+  flex-direction: column; /* В колонку */
+  height: auto;
+  text-align: center;
+}
+
+.product-image {
+  order: -1; /* Перемещаем вверх */
+  max-width: 100%;
+  padding-top: 30px;
+  padding-bottom: 1px; /* Отступ от текста */
+}
+
+.product-info {
+  max-width: 100%;
+  
+  padding-left: 0;
+}
+
+.pagination{
+  margin-top: 40px;
+  margin-left: 310px;  
+}
+    .banner_info-list {
+       flex-wrap: wrap;
+       gap: 20px;
+      
+    }
+
+    .banner_info-item1{
+        order: 1; /* Перемещаем элементы вниз */
+        margin: 0;
+    }
+    
+    .category_info-item {
+      height: 300px; /* Уменьшаем высоту */
+      padding: 20px;
+  }
+
+  .category_info-text {
+      font-size: 18px;
+  }
+
+  .category_info-button {
+      display: none;
+  }
+
+  .category-button {
+      width: 100%;
+      max-width: 280px;
+  }
+  
+  .category_info-item {
+    width: 350px;
+    height: 350px; /* Уменьшаем высоту */
+    padding: 20px;
+  }
+
+  }
+
+  @media (max-width: 690px) {
+    /* Показываем кнопку-бургер */
+    .menu-toggle {
+        display: block;
+    }
+    .header_menu-number{
+      display: none;
+    }
+    .header_menu {
+        display: none;
+        
+    }
+    .sale {
+      
+      text-align: center;
+      gap: 10px;
+  }
+
+  .sale-text {
+    flex-grow: 1;
+  }
+
+ 
+    /* Делаем выпадающее меню */
+    .header_menu-list {
+        flex-direction: column;
+        background: white;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 25%;
+        text-align: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+    }
+
+    /* Активное меню (показывается при клике) */
+    .header_menu.active {
+        display: block;
+    }
+
+    .whyGS_info-list{
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .whyGS_info-item{
+      border: none;
+      padding-inline: 20px;
+      border-bottom: solid 1px var(--color-lightgray);
+      border-top: solid 1px var(--color-lightgray);
+    }
+
+  
+      .buy-button {
+          width: calc(100%); /* 100% ширины минус отступы (20px слева + 20px справа) */
+          margin: 25px 0 0; /* Отступ сверху 15px, по бокам 20px */
+      }
+      .pagination {
+        display: flex;
+        justify-content: space-between; /* Стрелки по краям */
+        align-items: center;
+        position: relative;
+        margin: 40px 0px 40px; /* Отступы: сверху 40px, по бокам 20px */
+    }
+
+    .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 32px; /* Фиксируем размер стрелок */
+        height: 32px;
+    }
+
+    .arrow.left {
+        left: 5px; /* Небольшой отступ слева */
+    }
+
+    .arrow.right {
+        right: 5px; /* Небольшой отступ справа */
+    }
+
+    .dots {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%); /* Центрируем точки */
+        display: flex;
+        gap: 6px;
+    }
+  
+.product-text{
+  display: none;
+}
+
+.callback-inputlist{
+  flex-direction: column;
+  align-items: center;
+  
+
+}
+
+.callback-input{
+  width:calc(100% - 32px);
+}
+
+.callback-button{
+  width:calc(100% - 32px);
+  
+}
+.category_info-item {
+  width: 200px;
+  height: 200px; /* Уменьшаем высоту */
+  padding: 20px;
+}
+
+.popular_product-list {
+  display: flex;
+  gap: 15px; /* Отступ между карточками */
+  overflow-x: auto; /* Горизонтальный скролл */
+  white-space: nowrap; /* Запрещает перенос элементов */
+  padding-bottom: 10px;
+  scrollbar-width: none; /* Скрываем скроллбар в Firefox */
+}
+
+.popular_product-list::-webkit-scrollbar {
+  display: none; /* Полное скрытие скроллбара в Chrome, Safari, Edge */
+}
+
+/* Карточки товаров */
+.popular_product-item {
+  flex: 0 0 288px;
+  min-height: 400px; /* Даем больше места */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центрируем содержимое */
+  justify-content: flex-start;
+  overflow: hidden; /* Чтобы контент не вылазил */
+  border-style: none;
+}
+
+.popular_product-item img {
+  width: 100%; 
+  height: 220px; /* Фиксированная высота */
+  object-fit: contain; /* Вся картинка видна */
+  display: block;
+}
+
+.popular_product-text {
+  font-size: 14px; /* Делаем текст компактнее */
+  text-align: center; /* Центрируем */
+  word-wrap: break-word; /* Перенос слов */
+  overflow: hidden;
+}
+
+.price{
+  font-size: 20px;
+}
+
+.popular_product-title{
+  font-size: 22px;
+  padding-inline: 16px;
+
+}
+
+.popular_product-scrol{
+  display: none;
+}
+
+.footer_container-itemList{
+  flex-direction: column;
+}
+
+}
+
+@media (max-width: 490px) {
+  .header_logo{
+    display: none;
+  }
+  .sale-text {
+      flex-grow: 1;
+     font-size: 12px;
+     padding-inline: 23px;
+      padding: 0 10px; /* Отступы слева и справа */
+  }
+.header{
+  padding-inline: 16px;
+}
+
+
+.product-name{
+  font-size: 22px;
+  margin: 0;
+}
+.product-info{
+  
+}
+
+
+.product-price{
+  margin-top: 24px;
+}
+
+.whyGS_info-item{
+  padding-inline: 20px;
+}
+
+.category_info-text{
+  position: relative;
+  font-size: 14px;
+  left: 0;
+  top: 50px
+}
+
+.whyGS-title{
+  font-size: 22px;
+  margin-top: 40px;
+  margin-bottom: 24px;
+}
+
+.whyGS_info-text{
+  font-size: 16px;
+  padding-top: 10px;
+}
+
+.whyGS_info-item{
+  width: 343px;
+height: 180px;
+}
+
+.category-title{
+  
+  padding-bottom: 0;
+  margin-bottom: 24px;
+}
+
+.category_info-list{
+  padding-inline: 16px;
+}
+.category_info-item {
+  
+  width: 150px;
+  height: 160px; /* Уменьшаем высоту */
+  display: flex;
+  flex-direction: column; /* Размещаем контент вертикально */
+  align-items: start; /* Центрируем */
+  text-align: start;
+  background-position: right;
+  
+}
+
+
+  .category-button {
+      width: calc(100% - 32px) !important; /* Делаем кнопку на всю ширину с отступами */
+      max-width: none !important; /* Убираем ограничение ширины */
+      height: 50px; /* Фиксируем высоту */
+      font-size: 16px; /* Размер шрифта */
+      padding-inline: 16px; /* Внутренние отступы */
+      text-align: center; /* Выравниваем текст */
+      display: block; /* Делаем блочной */
+      margin: 60px auto 0 !important; /* Центрируем и задаем отступ сверху */
+  }
+
+  .banner-info {
+    padding-inline: 5px; /* Уменьшаем боковые отступы */
+  }
+
+  .banner_info-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Два столбца */
+    gap: 20px; /* Отступ между элементами */
+    justify-content: center; /* Центрируем */
+    text-align: center;
+   
+  }
+  .banner_info-text{
+    font-size: 14px;
+   
+  }
+
+  .banner_info-number{
+    font-size: 24px;
+  }
+
+  .popular_product-title {
+    font-size: 22px;
+    padding-inline: 16px;
+}
+
+.callback-text {
+  
+  font-size: 14px;
+
+}
+
+.callback-title{
+  font-size: 22px;
+}
+
+.callback_list-item{
+  padding-top: 6px;
+}
+
+
+  .footer_container {
+      height: auto;
+      padding: 20px 16px;
+  }
+
+  /* Логотип и соцсети идут в колонку */
+  .footer_container-itemList {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      text-align: center;
+      gap: 150px;
+      padding-left: 0;
+      
+  }
+
+  /* Соцсети центрируются */
+  .footer_container-itemchat {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      padding-top: 10px;
+  }
+
+  /* Контент футера разделяется на 2 колонки */
+  .footer_container-itemList1 {
+      display: grid;
+      
+      grid-template-columns: repeat(2, 1fr); /* Два столбца */
+      gap: 20px; /* Отступы между колонками */
+      margin-top: 20px;
+  }
+
+  /* Внутренние списки центрируются */
+  .footer_container-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+  }
+
+  .footer_container-itemlist1 {
+      align-items: center;
+      row-gap: 12px;
+  }
+
+  /* Линия и текст центрируются */
+  .footer_lineAndtext {
+      padding-inline: 16px;
+  }
+
+  .footer_line {
+      margin-top: 30px;
+  }
+
+.footer_container-itemLogo{
+  width: 70px;
+  height: 57px;
+}
+
+.footer_container-itemchat{
+  width: 120px;
+height: 24px;
+}
+
+.footer_container-list{
+  display: grid;  
+  gap: 20px; /* Отступы между колонками */
+  column-gap: 10px;
+}
+
+.footer_container-itemhead{
+  font-size: 20px;
+}
+
+.footer_container-itemItem{
+  font-size: 14px;
+}
+
+}
+
+
+
+
+
+ 
