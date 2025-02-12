@@ -106,54 +106,57 @@ const products = [
 
 
   ];
+  renderProductCards(products, 'productCards');
+
+
+
+
+ 
+ 
+ 
+
+  function renderProductCards(productsArray, containerId) {
+    const container = document.getElementById(containerId);
+    
+    productsArray.forEach(product => {
+      const li = document.createElement('li');
+      li.className = 'product-card';
+      
+      li.innerHTML = `
+        <div class="product-card__labels">
+          <img src="${product.available ? '/img/have.svg' : '/img/donthave.svg'}" 
+               alt="${product.available ? 'В наличии' : 'Нет в наличии'}">
+          <span class="product-card__status">${product.status}</span>
+          ${product.oldPrice ? '<span class="product-card__sale">sale</span>' : ''}
+        </div>
+        
+        ${product.isGift ? `
+          <div class="product-card__gift">
+            <img src="/img/podaroc.svg" alt="Подарок">
+            <span>Подарок</span>
+          </div>
+        ` : ''}
+  
+        <div class="product-card__image">
+          <img src="${product.image}" alt="${product.title}">
+        </div>
+        
+        <div class="product-card__info">
+          <p class="product-card__title">${product.title}</p>
+          <div class="product-card__price">
+            <span class="product-card__new-price">${product.newPrice}₽</span>
+            ${product.oldPrice ? `<span class="product-card__old-price">${product.oldPrice}</span>` : ''}
+          </div>
+        </div>
+      `;
+  
+      container.appendChild(li);
+    });
+    
+  }
+
 
   const container = document.getElementById('productCards');
-
-  // 3. Проходимся по каждому товару в массиве и создаем HTML для карточки
-  products.forEach(product => {
-    // Создаем новый элемент <li>
-    const li = document.createElement('li');
-    // Добавляем ему класс для стилизации
-    li.className = 'product-card';
-
-    // Используем шаблонную строку для вставки HTML с данными товара
-    li.innerHTML = `
-      <!-- Верхняя часть с метками -->
-      <div class="product-card__labels">
-       <img src="${product.available ? '/img/have.svg' : '/img/donthave.svg'}" alt="${product.available ? 'В наличии' : 'Нет в наличии'}">
-        <span class="product-card__status">${product.status}</span>
-        <span class="product-card__sale">sale</span>
-      </div>
-      
-      <!-- Если товар с подарком, выводим блок с иконкой подарка -->
-      ${product.isGift ? `
-        <div class="product-card__gift">
-          <img src="/img/podaroc.svg" alt="Подарок">
-          <span>Подарок</span>
-        </div>
-      ` :''}
-
-      <!-- Изображение товара -->
-      <div class="product-card__image">
-        <img src="${product.image}" alt="${product.title}">
-      </div>
-      
-      <!-- Описание товара -->
-      <div class="product-card__info">
-        <p class="product-card__title">${product.title}</p>
-        <div class="product-card__price">
-          <span class="product-card__new-price">${product.newPrice}₽</span>
-          ${product.oldPrice ? `<span class="product-card__old-price">${product.oldPrice}</span>` : ''}
-        </div>
-      </div>
-    `;
-
-    // Добавляем созданную карточку в контейнер
-    container.appendChild(li);
-  });
-
-
-
    // Выбираем кнопки по их классам
    const btnLeft = document.querySelector(".productcard-left");
    const btnRight = document.querySelector(".productcard-right");
@@ -356,3 +359,484 @@ function addItemsToList(list, items) {
 addItemsToList(list1, items1);  // Добавляем в первый список
 addItemsToList(list2, items2);  // Добавляем в второй список
 
+
+const reviews = [
+  {
+      name: "Андрей Попенко",
+      date: "2021-08-20",
+      text: "Et feugiat eu scelerisque nulla mattis...",
+      rating: 3
+  },
+  {
+      name: "Марина Смирнова",
+      date: "2023-11-15",
+      text: "Отличный замок, удобный в использовании...",
+      rating: 4
+  },
+  {
+      name: "Иван Кузнецов",
+      date: "2022-05-10",
+      text: "В целом неплохо, но хотелось бы больше функций...",
+      rating: 1
+  },
+  {
+      name: "Иван Кузнецов",
+      date: "2022-05-10",
+      text: "В, нункцийВ целом неплохо, но хункцийВ целом неплохо, но хункцийВ целом неплохо, но хункцийВ целом неплохо, но хункцийВ целом неплохо, но хункцийВ целом неплохо, но хункцийВ целом неплохо, но хункцийВ целом неплохо, но хо хотелось бы больше функций...В целом неплохо, но хотелось бы больше функций... В целом неплохо, но хотелось бы больше функций В целом неплохо, но хотелось бы больше функций...",
+      rating: 1
+  }
+];
+
+function generateStars(rating) {
+  let stars = "";
+  for (let i = 0; i < 5; i++) {
+      if (i < rating) {
+          stars += '<span class="characteric-star_empty"></span>'; // Закрашенная звезда
+      } else {
+          stars += '<span class="characteric-star "></span>'; // Пустая звезда
+      }
+  }
+  return stars;
+}
+
+function renderReviews() {
+  const container = document.getElementById("reviews-container");
+  container.innerHTML = ""; // Очищаем контейнер перед рендерингом новых отзывов
+
+  reviews.forEach(review => {
+      const reviewHTML = `
+          <div class="tables--reviews__list">
+              <div class="reviews--head">
+                  <p class="reviews--clientName">${review.name}</p>
+                  <time datetime="${review.date}">${new Date(review.date).toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" })}</time>
+                  <div class="reviews--star">${generateStars(review.rating)}</div>
+              </div>
+              <div class="text--reviews">
+                  <span>${review.text}</span>
+              </div>
+              <div class="reviews--feedback">
+                  <div class="reviews--answer">
+                      <img src="/icon/answer.svg" alt="">
+                      <span>Ответить</span>
+                  </div>
+                  <div class="reviews--comment">
+                      <img src="/icon/comment.svg" alt="">
+                      <span class="comments--count">Комментарий</span>
+                  </div>
+              </div>
+          </div>
+      `;
+      container.innerHTML += reviewHTML;
+  });
+}
+// Вызов функции для рендера отзывов
+renderReviews();
+
+//Скрытие отзывов при необходимости и отоброжение
+document.addEventListener("DOMContentLoaded", function () {
+  const reviews = document.querySelectorAll(".tables--reviews__list");
+  const toggleBtn = document.getElementById("toggle-reviews-btn");
+  let isExpanded = false; 
+
+  reviews.forEach((review, index) => {
+      if (index >= 3) {
+          review.style.display = "none";
+      }
+  });
+
+  toggleBtn.addEventListener("click", function () {
+      reviews.forEach((review, index) => {
+          if (index >= 3) {
+              review.style.display = isExpanded ? "none" : "block";
+          }
+      });
+
+      toggleBtn.querySelector("span").textContent = isExpanded ? "Показать еще" : "Скрыть";
+      isExpanded = !isExpanded;
+  });
+});
+
+
+//Отоброжение секции каталог 
+document.addEventListener('DOMContentLoaded', function () {
+  const catalogLink = document.querySelector('.catalog');
+  const infotableSection = document.getElementById('charactericindex');
+  const infotableCharacteric = document.getElementById('infotablecharacteric');
+  const catalogSection = document.getElementById('catalog-section');
+  const breadcrumbContainer = document.querySelector('.hreff');
+
+  // Изначально скрываем каталог
+  catalogSection.style.display = 'none';
+
+  catalogLink.addEventListener('click', function (event) {
+      event.preventDefault(); // Отменяем стандартное поведение ссылки
+
+      if (infotableSection.style.display !== 'none') {
+          // Переход в каталог
+          infotableSection.style.display = 'none';
+          infotableCharacteric.style.display = 'none';
+          catalogSection.style.display = 'block';
+          updateBreadcrumbs('Каталог'); 
+      } else {
+          // Возврат из каталога
+          infotableSection.style.display = 'block';
+          infotableCharacteric.style.display = 'block';
+          catalogSection.style.display = 'none';
+          updateBreadcrumbs('Дверной Замок Golden Soft для офиса');
+      }
+  });
+
+  function updateBreadcrumbs(lastItem) {
+    // Получаем контейнер с хлебными крошками
+    const breadcrumbContainer = document.querySelector('.hreff');
+
+    // Проверяем, есть ли уже "Каталог" в хлебных крошках
+    let catalogExists = !!breadcrumbContainer.querySelector('.catalog');
+
+    // Очищаем контейнер
+    breadcrumbContainer.innerHTML = `
+        <a href=""><img src="/icon/home.svg" alt="" class="hrefficon"></a>
+        <a href="" class="home">Главная</a>
+        ${catalogExists ? '' : '<a href="" class="catalog">Каталог</a>'}
+        <a href="">${lastItem}</a>
+    `;
+}
+
+});
+
+
+//Слайдер фильтра цены 
+document.addEventListener("DOMContentLoaded", function () {
+  const minPriceInput = document.getElementById("minPrice");
+  const maxPriceInput = document.getElementById("maxPrice");
+  const minRange = document.getElementById("minRange");
+  const maxRange = document.getElementById("maxRange");
+  const sliderTrack = document.querySelector(".slider-track");
+
+  const minGap = 5000; // Минимальный отступ между значениями
+
+  function updateTrack() {
+      let minPercent = (minRange.value / minRange.max) * 100;
+      let maxPercent = (maxRange.value / maxRange.max) * 100;
+      sliderTrack.style.left = minPercent + "%";
+      sliderTrack.style.right = (100 - maxPercent) + "%";
+  }
+
+  function syncInputs(event) {
+      let minVal = parseInt(minRange.value);
+      let maxVal = parseInt(maxRange.value);
+
+      if (maxVal - minVal < minGap) {
+          if (event.target === minRange) {
+              minRange.value = maxVal - minGap;
+          } else {
+              maxRange.value = minVal + minGap;
+          }
+      }
+
+      minPriceInput.value = minRange.value;
+      maxPriceInput.value = maxRange.value;
+      updateTrack();
+  }
+
+  function syncRanges() {
+      let minVal = parseInt(minPriceInput.value);
+      let maxVal = parseInt(maxPriceInput.value);
+
+      if (maxVal - minVal >= minGap) {
+          minRange.value = minVal;
+          maxRange.value = maxVal;
+      } else {
+          if (minVal + minGap <= maxRange.max) {
+              minRange.value = minVal;
+              maxRange.value = minVal + minGap;
+          } else {
+              minRange.value = maxVal - minGap;
+              maxRange.value = maxVal;
+          }
+      }
+
+      updateTrack();
+  }
+
+  // Обновляем трек
+  updateTrack();
+
+  // Добавляем обработчики событий
+  minRange.addEventListener("input", syncInputs);
+  maxRange.addEventListener("input", syncInputs);
+  minPriceInput.addEventListener("input", syncRanges);
+  maxPriceInput.addEventListener("input", syncRanges);
+});
+
+
+//Аккордеон 
+document.addEventListener("DOMContentLoaded", function () {
+  const accordions = document.querySelectorAll(".accordeonfilter"); // Выбираем все аккордеоны
+
+  accordions.forEach(function (accordion) {
+    const accordionHeader = accordion.querySelector(".accordion-header");
+    const accordionContent = accordion.querySelector(".accordion-content");
+    const toggleButton = accordion.querySelector(".toggle-accordion");
+
+    accordionHeader.addEventListener("click", function () {
+      // Переключаем активный класс для контента
+      accordionContent.classList.toggle("active");
+
+      // Меняем направление стрелки
+      if (accordionContent.classList.contains("active")) {
+        toggleButton.src = "/icon/accordUp.svg";
+      } else {
+        toggleButton.src = "/icon/accordDown.svg";
+      }
+    });
+  });
+});
+
+
+function addFeatureItem(text, count) {
+  const html = `
+    <li class="feature-item">
+      <label class="feature-label">
+        <input type="checkbox">
+        <span class="custom-checkbox"></span>
+        <span class="feature-text">${text}</span>
+        <span class="feature-count">(${count})</span>
+      </label>
+    </li>
+  `;
+
+  // Находим все элементы с классом .features
+  const featuresLists = document.querySelectorAll('.features');
+
+  // Добавляем новый элемент в каждый найденный .features
+  featuresLists.forEach(featuresList => {
+    featuresList.insertAdjacentHTML('beforeend', html);
+  });
+}
+
+// Использование
+addFeatureItem('Умные замки', '27');
+addFeatureItem('Антивандальные замки', '13');
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const catalogContainer = document.getElementById("catalogContainer");
+  const prevPageBtn = document.querySelector(".prev-page");
+  const nextPageBtn = document.querySelector(".next-page");
+  
+
+  const productsPerPage = 12; // 3 столбца × 4 ряда
+  let currentPage = 1;
+
+  // Массив товаров
+  const catalogProducts = [
+    {
+      image: '/img/productcard (1).svg',
+      title: 'Вариативный замок Golden Soft для отеля.',
+      newPrice: '7 000',
+      oldPrice: '8 000',
+      status: 'Нет в наличии',
+      available: false,
+      isGift: true,
+    },
+    {
+      image: '/img/productcard (2).svg',
+      title: 'Вариативный замок Golden Soft для отеля.',
+      newPrice: '5 500',
+      oldPrice: '',
+      status: 'В наличии',
+      available: true,
+      isGift: false,
+    },
+    {
+      image: '/img/productcard (3).svg',
+      title: 'Дверной замок Golden Soft для отеля.',
+      newPrice: '15 000',
+      oldPrice: '',
+      status: 'В наличии',
+      available: true,
+      isGift: false,
+
+    },
+   
+    {
+        image: '/img/productcard (4).svg',
+        title: 'Дверной замок Golden Soft для отеля.',
+        newPrice: '15 000',
+        oldPrice: '',
+        status: 'Нет в наличии',
+        available: false,
+        isGift: true,
+  
+      },
+      {
+        image: '/img/productcard (2).svg',
+        title: 'Вариативный замок Golden Soft для отеля.',
+        newPrice: '5 500',
+        oldPrice: '',
+        status: 'В наличии',
+        available: true,
+        isGift: false,
+      },
+      {
+        image: '/img/productcard (3).svg',
+        title: 'Дверной замок Golden Soft для отеля.',
+        newPrice: '15 000',
+        oldPrice: '',
+        status: 'В наличии',
+        available: true,
+        isGift: false,
+  
+      },
+     
+      {
+          image: '/img/productcard (4).svg',
+          title: 'Дверной замок Golden Soft для отеля.',
+          newPrice: '15 000',
+          oldPrice: '',
+          status: 'Нет в наличии',
+          available: false,
+          isGift: true,
+    
+        },
+        {
+          image: '/img/productcard (2).svg',
+          title: 'Вариативный замок Golden Soft для отеля.',
+          newPrice: '5 500',
+          oldPrice: '',
+          status: 'В наличии',
+          available: true,
+          isGift: false,
+        },
+        {
+          image: '/img/productcard (3).svg',
+          title: 'Дверной замок Golden Soft для отеля.',
+          newPrice: '15 000',
+          oldPrice: '',
+          status: 'В наличии',
+          available: true,
+          isGift: false,
+    
+        },
+       
+        {
+            image: '/img/productcard (4).svg',
+            title: 'Дверной замок Golden Soft для отеля.',
+            newPrice: '15 000',
+            oldPrice: '',
+            status: 'Нет в наличии',
+            available: false,
+            isGift: true,
+      
+          },
+          {
+            image: '/img/productcard (2).svg',
+            title: 'Вариативный замок Golden Soft для отеля.',
+            newPrice: '5 500',
+            oldPrice: '',
+            status: 'В наличии',
+            available: true,
+            isGift: false,
+          },
+          {
+            image: '/img/productcard (3).svg',
+            title: 'Дверной замок Golden Soft для отеля.',
+            newPrice: '15 000',
+            oldPrice: '',
+            status: 'В наличии',
+            available: true,
+            isGift: false,
+      
+          },
+         
+          {
+              image: '/img/productcard (4).svg',
+              title: 'Дверной замок Golden Soft для отеля.',
+              newPrice: '15 000',
+              oldPrice: '',
+              status: 'Нет в наличии',
+              available: false,
+              isGift: true,
+        
+            },
+            {
+              image: '/img/productcard (2).svg',
+              title: 'Вариативный замок Golden Soft для отеля.',
+              newPrice: '5 500',
+              oldPrice: '',
+              status: 'В наличии',
+              available: true,
+              isGift: false,
+            },
+            {
+              image: '/img/productcard (3).svg',
+              title: 'Дверной замок Golden Soft для отеля.',
+              newPrice: '15 000',
+              oldPrice: '',
+              status: 'В наличии',
+              available: true,
+              isGift: false,
+        
+            },
+           
+            {
+                image: '/img/productcard (4).svg',
+                title: 'Дверной замок Golden Soft для отеля.',
+                newPrice: '15 000',
+                oldPrice: '',
+                status: 'Нет в наличии',
+                available: false,
+                isGift: true,
+          
+              }
+  ];
+
+
+  if (typeof renderProductCards !== "function") {
+      console.error("Ошибка: renderProductCards() не найдена!");
+      return;
+  }
+
+  function renderCatalog() {
+      if (!catalogProducts || catalogProducts.length === 0) {
+          console.error("Ошибка: catalogProducts пуст или не определён!");
+          return;
+      }
+
+      const startIndex = (currentPage - 1) * productsPerPage;
+      const endIndex = Math.min(startIndex + productsPerPage, catalogProducts.length);
+      const pageProducts = catalogProducts.slice(startIndex, endIndex); //  Здесь отбираем карточки для текущей страницы
+
+      catalogContainer.innerHTML = ""; // Очищаем контейнер перед рендерингом
+
+      renderProductCards(pageProducts, "catalogContainer"); //Рендерим карточки текущей страницы
+
+      updateButtons();
+  }
+
+  function updateButtons() {
+      prevPageBtn.disabled = currentPage === 1;
+      nextPageBtn.disabled = currentPage * productsPerPage >= catalogProducts.length;
+  }
+
+  prevPageBtn.addEventListener("click", function () {
+      if (currentPage > 1) {
+          currentPage--;
+          renderCatalog();
+      }
+  });
+
+  nextPageBtn.addEventListener("click", function () {
+      if (currentPage * productsPerPage < catalogProducts.length) {
+          currentPage++;
+          renderCatalog();
+      }
+  });
+
+  renderCatalog(); 
+});

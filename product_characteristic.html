@@ -18,12 +18,132 @@
     <main class="container">
         <div class="hreff">
         <a href="" > <img src="/icon/home.svg" alt="" class="hrefficon"></a>
-        <a href="" class="home"> Главная</a>
-        <a href="">Каталог</a>
+        <a href="" class="home">Главная</a>
+        <a href="" class="catalog">Каталог</a>
         <a href="">Дверной Замок Golden Soft для офиса</a>
+        </div>
 
-    </div>
-        <section class="characteric-index">
+        <section class="catalog-section" id="catalog-section">
+            
+           
+            <div class="catalog__List">
+                <div class="catalog--header"> <h2>Накладные электронные замки</h2></div>
+                <div class="reset--filters">
+                    <button class="reset--filters__button">Сбросить фильтры</button>
+                    <span class="have--filters">Электронные кодовые замки <img src="/icon/cancel.svg" alt=""> </span>
+                    <select name="" id="" class="filter--product">
+                        <option value="popular--product">Популярные</option>
+                        <option value="min--priceFilter">Низкая цена</option>
+                        <option value="max--priceFilter">Максимальная цена</option>
+                    </select>
+                </div>
+              
+                <div class="conteiner--filter">
+                <div class="filter--accordeonConteiner">
+                    <span class="filter--accordeonConteiner__header">Фильтр</span>
+                    <div class="accordeonfilter">
+                        <div class="accordion-header">
+                            <label>Цена</label>
+                            <img src="/icon/accordDown.svg" alt="Toggle" class="toggle-accordion">
+                        </div>
+                        <div class="accordion-content">
+                            <div class="inputs">
+                                <input type="number" id="minPrice" value="1000">
+                                <input type="number" id="maxPrice" value="24500">
+                            </div>
+                            <div class="slider-container">
+                                <input type="range" id="minRange" min="0" max="100000" value="10000">
+                                <input type="range" id="maxRange" min="0" max="100000" value="24500">
+                                <div class="slider-track"></div>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <div class="accordeonfilter">
+                        <div class="accordion-header">
+                              <label for="">Особенности</label>
+                              <img src="/icon/accordDown.svg" alt="Toggle" class="toggle-accordion">
+                        </div>
+                        <div class="accordion-content"> 
+                            <ul class="features">
+                                <li class="feature-item">
+                                  <label class="feature-label">
+                                    <input type="checkbox">
+                                    <span class="custom-checkbox"></span>
+                                    <span class="feature-text">Электронные кодовые замки </span>
+                                    <span class="feature-count">(65)</span>
+                                  </label>
+                                </li> 
+                            </ul>
+                         </div>
+                        </div>
+                        <div class="accordeonfilter">
+                            <div class="accordion-header">
+                                  <label for="">Цвет</label>
+                                  <img src="/icon/accordDown.svg" alt="Toggle" class="toggle-accordion">
+                            </div>
+                            <div class="accordion-content"> 
+                                <ul class="features">
+                                    <li class="feature-item">
+                                      <label class="feature-label">
+                                        <input type="checkbox">
+                                        <span class="custom-checkbox"></span>
+                                        <span class="feature-text">Черный/золота</span>
+                                        <span class="feature-count">(65)</span>
+                                      </label>
+                                    </li> 
+                                </ul>
+                             </div>
+                            </div>
+                            <div class="accordeonfilter">
+                                <div class="accordion-header">
+                                      <label for="">Материал</label>
+                                      <img src="/icon/accordDown.svg" alt="Toggle" class="toggle-accordion">
+                                </div>
+                                <div class="accordion-content"> 
+                                    <ul class="features">
+                                        <li class="feature-item">
+                                          <label class="feature-label">
+                                            <input type="checkbox">
+                                            <span class="custom-checkbox"></span>
+                                            <span class="feature-text">Сталь</span>
+                                            <span class="feature-count">(65)</span>
+                                          </label>
+                                        </li> 
+                                    </ul>
+                                 </div>
+                                </div>
+                                <div class="accordeonfilter">
+                                    <div class="accordion-header">
+                                          <label for="">Размеры</label>
+                                          <img src="/icon/accordDown.svg" alt="Toggle" class="toggle-accordion">
+                                    </div>
+                                    <div class="accordion-content"> 
+                                        <ul class="features">
+                                            <li class="feature-item">
+                                              <label class="feature-label">
+                                                <input type="checkbox">
+                                                <span class="custom-checkbox"></span>
+                                                <span class="feature-text">300Х100 мм</span>
+                                                <span class="feature-count">(65)</span>
+                                              </label>
+                                            </li> 
+                                        </ul>
+                                     </div>
+                                    </div>
+                </div>
+              
+                <ul id="catalogContainer" class="catalog-list"></ul>
+                   
+        </div>
+        <div class="catalog--pagination">
+            <button class="prev-page">Назад</button>
+            <button class="next-page">Вперед</button>
+          </div>
+        </div>
+          </section>
+
+        <section class="characteric-index" id="charactericindex">
             <ul class="characteric-index_list">
                 <li class="characteric-index_item">
                     <ul class="characteric-index_itemlist">
@@ -177,7 +297,7 @@
             </ul>
         </section>
 
-        <section class="infotable">
+        <section class="infotable" id="infotablecharacteric">
             <div class="vcladki">
                 <ul class="vcladki_list">
                     <li class="vcladki_item active" data-tab="characteristics">Характеристики</li>
@@ -262,37 +382,15 @@
            </div>
         </div>
 
-        <div class="tables-content tables--reviews">
-            <div class="tables--reviews__list">
-            <div class="reviews--head">
-             <p class="reviews--clientName">Андрей Попенко</p>  
-             <time datetime="2021-08-20">20 августа, 2021</time>
-             <div class="reviews--star">
-                <span class="characteric-star_empty"></span>
-                <span class="characteric-star_empty"></span>
-                <span class="characteric-star_empty"></span>
-                <span class="characteric-star"></span>
-                <span class="characteric-star"></span>
-             </div>
+        <div class="tables-content tables--reviews" >
+            <div class="reviewsConteiner">
+            <div class="reviews--container" id="reviews-container"></div>
+          
+            <div class="reviews--feedback__button" id="toggle-reviews-btn">
+                <img src="/icon/refresh.svg" alt="Обновить">
+                <span>Показать еще</span>
             </div>
-            <div class="text--reviews"> 
-             <span>Et feugiat eu scelerisque nulla mattis. At et enim dui mauris. Nisi, hendrerit dictum consequat tristique sed. 
-                Est ultrices etiam in lorem nulla a.Et feugiat eu scelerisque nulla mattis. At et enim dui mauris. Nisi</span>
-            </div>
-       
-<div class="reviews--feedback">
-    <div class="reviews--answer">
-        <img src="/icon/answer.svg" alt="">
-        <span>Ответить</span>
-        
-    </div>
-    <div class="reviews--comment">
-        <img src="/icon/comment.svg" alt="">
-        <span id="comments--count">Комментарий</span>   
-    </div>
-</div>
-</div>
-
+        </div>
 <form class="reviews--form__add">
     <div class="reviews-inputlist"> 
         <span>Ваша оценка</span>
